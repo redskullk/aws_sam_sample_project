@@ -16,10 +16,10 @@ pipeline {
         stage('build') {
             steps {
 		withCredentials([usernamePassword(credentialsId: 'aws_credentials', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-                    //sh 'sam package --template-file template.yaml --output-template-file sam.yaml --s3-bucket samawstestbucket'
-		    nodejs('node'){
+                    sh 'sam package --template-file template.yaml --output-template-file sam.yaml --s3-bucket samawstestbucket'
+		    /*nodejs('node'){
 			sh 'sam build'
-		    }	
+		    }*/	
                 }    
 	    }
         }
