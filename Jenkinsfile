@@ -6,6 +6,13 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/redskullk/aws_sam_sample_project.git']]])
             }
         }
+	stage('pre build installs'){
+ 	    steps {
+		nodejs('node'){
+		    sh 'npm install --prefix ./hello-world/'	
+		}
+	    }	
+	}    
 	stage('validation') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws_credentials', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
